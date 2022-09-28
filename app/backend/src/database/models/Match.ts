@@ -3,11 +3,11 @@ import db from '.';
 // import OtherModel from './OtherModel';
 
 class Match extends Model {
-  id: number;
-  homeTeam: string;
-  homeTeamGoals: number;
-  awayTeam: string;
-  awayTeamGoals: number;
+  id!: number;
+  homeTeam!: string;
+  homeTeamGoals!: number;
+  awayTeam!: string;
+  awayTeamGoals!: number;
 }
 
 Match.init({
