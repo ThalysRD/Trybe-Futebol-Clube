@@ -3,8 +3,8 @@ import db from '.';
 // import OtherModel from './OtherModel';
 
 class Team extends Model {
-  id: number;
-  teamName: string;
+  id!: number;
+  teamName!: string;
 }
 
 Team.init({
