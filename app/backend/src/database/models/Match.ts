@@ -4,10 +4,11 @@ import db from '.';
 
 class Match extends Model {
   id!: number;
-  homeTeam!: string;
+  homeTeam!: number;
   homeTeamGoals!: number;
-  awayTeam!: string;
+  awayTeam!: number;
   awayTeamGoals!: number;
+  inProgress: boolean;
 }
 
 Match.init({
@@ -18,19 +19,19 @@ Match.init({
     allowNull: false,
   },
   homeTeam: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   homeTeamGoals: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   awayTeam: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   awayTeamGoals: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   inProgress: {
