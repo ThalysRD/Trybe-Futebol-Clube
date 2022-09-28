@@ -3,11 +3,11 @@ import db from '.';
 // import OtherModel from './OtherModel';
 
 class User extends Model {
-  id: number;
-  username: string;
-  role: string;
-  email: string;
-  password: string;
+  id!: number;
+  username!: string;
+  role!: string;
+  email!: string;
+  password!: string;
 }
 
 User.init({
