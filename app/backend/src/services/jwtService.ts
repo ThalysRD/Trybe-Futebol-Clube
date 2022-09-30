@@ -7,11 +7,11 @@ const secret = 'jwt_secret';
 const jwtService = {
   generateToken: (user: IUser) => {
     const { id, email, role } = user;
-    const token = jwt.sign({ dataUser: {
+    const token = jwt.sign({ data: {
       id,
       email,
       role,
-    } }, secret);
+    } }, secret, { expiresIn: '7d', algorithm: 'HS256' });
 
     return token;
   },
@@ -22,10 +22,9 @@ const jwtService = {
       // console.log(decode);
       return decode as IPayload;
     } catch (error) {
-      return { message: 'Expired or invalid token' };
+      throw new Error('Expired or invalid token');
     }
   },
 };
-// { expiresIn: '7d', algorithm: 'HS256' }
 
 export default jwtService;
