@@ -13,8 +13,8 @@ export default class userController {
     const token = req.headers.authorization;
     if (token) {
       const result = jwtService.validateToken(token);
-      // const { dataUser } = result;
-      return res.status(200).json(result);
+      const { data } = result;
+      return res.status(200).json({ role: data.role });
     }
     return res.status(404).json({ message: 'Token inválido' });
   };
