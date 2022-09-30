@@ -5,6 +5,13 @@ import verifyPassword from '../middlewares/verifyPassword';
 
 const userRoute = Router();
 
-userRoute.post('/login', verifyEmail, verifyPassword, userController.login);
+userRoute.post(
+  '/login',
+  verifyEmail.emailExist,
+  verifyEmail.emailIsCorrect,
+  verifyPassword.passwordExist,
+  verifyPassword.passwordCorrect,
+  userController.login,
+);
 
 export default userRoute;
