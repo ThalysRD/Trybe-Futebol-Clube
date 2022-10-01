@@ -6,4 +6,12 @@ export default class teamsController {
     const teams = await teamModel.findAll();
     return res.status(200).json(teams);
   };
+
+  static teamsById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (id) {
+      const team = await teamModel.findByPk(id);
+      return res.status(200).json(team);
+    }
+  };
 }
