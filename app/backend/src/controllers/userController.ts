@@ -16,6 +16,6 @@ export default class userController {
       const { data } = result;
       return res.status(200).json({ role: data.role });
     }
-    return res.status(404).json({ message: 'Token inválido' });
+    return res.status(400).json({ message: 'Token inválido' });
   };
 }
