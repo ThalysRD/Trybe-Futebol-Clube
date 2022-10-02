@@ -46,3 +46,31 @@ describe('/login', () => {
     } )
   } )
 })
+
+describe('/match', () => {
+  describe('get /teams',  () => {
+    it('Deve retornar status 200', async () => {
+      const response = await chai.request(app).get('/teams')
+      expect(response.status).to.equal(200)
+    })
+    it('Deve retornar um array com times', async () => {
+      const response = await chai.request(app).get('/teams')
+      expect(response.body[0]).to.include.keys("teamName")
+    })
+  })
+  describe('get /teams/:id', () => {
+    const teamObj = {
+      "id": 1,
+      "teamName": "Avaí/Kindermann"
+    }
+    
+     it('Deve retornar um objeto com o time Avaí', async () => {
+      const response = await chai.request(app).get('/teams/1')
+      expect (response.body).to.deep.equal(teamObj)
+     })
+     it('Deve retornar o status 200, caso a requisição seja realizada', async () => {
+      const response = await chai.request(app).get('/teams/1')
+      expect(response.status).to.equal(200)
+     })
+  })
+})
