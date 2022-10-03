@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import matchModel from '../database/models/Match';
-import teamModel from '../database/models/Team';
+import matchesService from '../services/matchesService';
 
 export default class matchesController {
-  static allMatches = async (_req: Request, res: Response) => {
-    const result = await matchModel.findAll(
-      { include: [
-        { model: teamModel, as: 'teamHome', attributes: ['teamName'] },
-        { model: teamModel, as: 'teamAway', attributes: ['teamName'] },
-      ] },
-    );
+  static allMatches = async (req: Request, res: Response) => {
+    const boolean = req.query.inProgress;
+    if (boolean === undefined) {
+      const result = await matchesService.allMatches();
+      return res.status(200).json(result);
+    }
+    const inProgress = (boolean === 'true');
+    const result = await matchesService.filtredProgress(inProgress);
     return res.status(200).json(result);
   };
 
