@@ -3,7 +3,6 @@ import matchesController from '../controllers/matchesController';
 
 const matchsRoute = Router();
 
-// matchsRoute.get('/matches/', matchesController.allMatchesInProgress);
 matchsRoute.get('/matches', matchesController.allMatches);
 // matchsRoute.post('/matches', matchesController.newMatch);
 // matchsRoute.patch('matches/:id/finish', matchesController.matchesFinish);
