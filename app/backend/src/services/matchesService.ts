@@ -1,3 +1,4 @@
+import IMatch from '../interfaces/IMatch';
 import matchModel from '../database/models/Match';
 import teamModel from '../database/models/Team';
 
@@ -22,6 +23,11 @@ export default class matchesService {
         { model: teamModel, as: 'teamAway', attributes: ['teamName'] },
       ],
     });
+    return result;
+  };
+
+  static newMatch = async (data: IMatch) => {
+    const result = await matchModel.create(data);
     return result;
   };
 }
