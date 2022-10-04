@@ -38,4 +38,11 @@ export default class matchesController {
       }
     }
   };
+
+  static updateMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+    const result = await matchesService.updateMatch(data, id);
+    return res.status(200).json(result);
+  };
 }
