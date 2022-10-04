@@ -14,4 +14,5 @@ matchsRoute.post(
   matchesController.newMatch,
 );
 matchsRoute.patch('/matches/:id/finish', verifyMatch.tokenValidate, matchesController.finishMatch);
+matchsRoute.patch('/matches/:id', verifyMatch.tokenValidate, matchesController.updateMatch);
 export default matchsRoute;
