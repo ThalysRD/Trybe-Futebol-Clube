@@ -17,6 +17,7 @@ export default class matchesController {
   static newMatch = async (req: Request, res: Response) => {
     const token = req.headers.authorization;
     const data = req.body;
+    data.inProgress = true;
     if (token) {
       const validate = jwtService.validateToken(token);
       if (validate.data.role === 'admin') {
@@ -26,8 +27,15 @@ export default class matchesController {
     }
   };
 
-//   static matchesFinish = async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     return res.status(200).json()
-//   };
+  static finishMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+    if (token) {
+      const validate = jwtService.validateToken(token);
+      if (validate.data.role === 'admin') {
+        const result = await matchesService.finishMatch(id);
+        return res.status(200).json(result);
+      }
+    }
+  };
 }
