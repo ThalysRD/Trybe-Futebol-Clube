@@ -30,4 +30,12 @@ export default class matchesService {
     const result = await matchModel.create(data);
     return result;
   };
+
+  static finishMatch = async (id: string) => {
+    const result = await matchModel.update({ inProgress: false }, { where: { id },
+    });
+    console.log(result);
+    const message = { message: 'Finished' };
+    return message;
+  };
 }
