@@ -17,8 +17,12 @@ const jwtService = {
   },
 
   validateToken: (token: string) => {
-    const decode = jwt.verify(token, secret);
-    return decode as IPayload;
+    try {
+      const decode = jwt.verify(token, secret);
+      return decode as IPayload;
+    } catch (error) {
+      throw new Error('Expired or invalid token');
+    }
   },
 };
 
