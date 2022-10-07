@@ -100,6 +100,28 @@ describe('/matches', () => {
       expect(response.body.length).to.equal(48)
     })
   })
-  // describe('get /matches/inProgress', () => {
-  // })
+  describe('get /matches/inProgress', () => {
+   describe('true', () => {
+    it('Deve retornar o status 200', async () => {
+      const respose = await chai.request(app).get('/matches?inProgress=true')
+      expect(respose.status).to.equal(200)
+    })
+    it('O primeiro item deve conter a chave inProgresse com o valor true', async() => {
+      const response = await chai.request(app).get('/matches?inProgress=true')
+      expect(response.body[0]).to.include.keys('inProgress')
+      expect(response.body[0].inProgress).to.deep.equal(true)
+    })
+   })
+   describe('false', () => {
+    it('Deve retornar o status 200', async () => {
+      const respose = await chai.request(app).get('/matches?inProgress=false')
+      expect(respose.status).to.equal(200)
+    })
+    it('O primeiro item deve conter a chave inProgresse com o valor false', async() => {
+      const response = await chai.request(app).get('/matches?inProgress=false')
+      expect(response.body[0]).to.include.keys('inProgress')
+      expect(response.body[0].inProgress).to.deep.equal(false)
+    })
+   })
+  })
 })
