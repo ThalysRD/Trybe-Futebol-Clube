@@ -4,7 +4,6 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 
@@ -47,7 +46,7 @@ describe('/login', () => {
   } )
 })
 
-describe('/match', () => {
+describe('/teams', () => {
   describe('get /teams',  () => {
     it('Deve retornar status 200', async () => {
       const response = await chai.request(app).get('/teams')
@@ -73,4 +72,34 @@ describe('/match', () => {
       expect(response.status).to.equal(200)
      })
   })
+})
+
+describe('/matches', () => {
+  describe('get /matches', () => {
+    const match = {
+      "id": 1,
+      "homeTeam": 16,
+      "homeTeamGoals": 1,
+      "awayTeam": 8,
+      "awayTeamGoals": 1,
+      "inProgress": false,
+      "teamHome": {
+          "teamName": "São Paulo"
+      },
+      "teamAway": {
+          "teamName": "Grêmio"
+      }
+    }
+    it('Deve retornar o status 200', async () => {
+      const response = await chai.request(app).get('/matches')
+      expect(response.status).to.equal(200)
+    })
+    it('Deve retornar a lista com todas as partidas', async () => {
+      const response = await chai.request(app).get('/matches')
+      expect(response.body[0]).to.deep.equal(match)
+      expect(response.body.length).to.equal(48)
+    })
+  })
+  // describe('get /matches/inProgress', () => {
+  // })
 })
