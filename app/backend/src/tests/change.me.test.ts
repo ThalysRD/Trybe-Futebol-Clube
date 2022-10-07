@@ -6,6 +6,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 
 import { Response } from 'superagent';
+import { response } from 'express';
 
 chai.use(chaiHttp);
 
@@ -123,5 +124,53 @@ describe('/matches', () => {
       expect(response.body[0].inProgress).to.deep.equal(false)
     })
    })
+  })
+  // describe('get /matches/id/finish', () => {
+
+  // })
+  describe('patch /matches/id', () => {
+    it('Espera que retorne o status 200', async () => {
+      const response = await chai.request(app).patch('/matches/48').set({"Authorization" : token}).send({ 
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2
+      })
+      expect(response.status).to.equal(200)
+    })
+    it('Espera que retorna a mensagem informando que a partida foi atualizada', async () => {
+      const response = await chai.request(app).patch('/matches/48').set({"Authorization" : token}).send({
+        "homeTeamGoals": 1,
+        "awayTeamGoals": 2
+      })
+      expect(response.body).to.deep.equal({message: "Updated"})
+    })
+    it('Espera que não seja possível atualizar a partida sem estar atuorizado', async () => {
+      const response = await chai.request(app).patch('/matches/48').send({
+        "homeTeamGoals": 1,
+        "awayTeamGoals": 2
+      })
+      expect(response.status).to.equal(401)
+      expect(response.body).to.deep.equal({message: "Token must be a valid token"})
+    })
+  })
+  describe('post /matches', () => {
+  
+    it('Espera que retorne o status 201 e a partida criada', async () => {
+      const response = await chai.request(app).post('/matches').set({"Authorization" : token}).send({"homeTeam": 16,
+      "awayTeam": 8,
+      "homeTeamGoals": 2,
+      "awayTeamGoals": 2,
+      "inProgress": true} )
+      expect(response.status).to.equal(201)
+      expect(response.body).to.include.keys(['id', 'homeTeam', 'awayTeam', 'homeTeamGoals', 'awayTeamGoals', 'inProgress'])
+    })
+    it('Não é possível criar uma nova partida sem o token de autorização', async () => {
+      const response = await chai.request(app).post('/matches').send({"homeTeam": 16,
+      "awayTeam": 8,
+      "homeTeamGoals": 2,
+      "awayTeamGoals": 2,
+      "inProgress": true} )
+      expect(response.status).to.equal(401)
+      expect(response.body).to.deep.equal({message: "Token must be a valid token"})
+    })
   })
 })
