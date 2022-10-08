@@ -1,4 +1,4 @@
-import * as sinon from 'sinon';
+import * as Sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
@@ -7,6 +7,7 @@ import { app } from '../app';
 
 import { Response } from 'superagent';
 import { response } from 'express';
+import Match from '../database/models/Match';
 
 chai.use(chaiHttp);
 
@@ -125,9 +126,14 @@ describe('/matches', () => {
     })
    })
   })
-  // describe('get /matches/id/finish', () => {
-
-  // })
+  describe('get /matches/id/finish', () => {
+    const message = {message: 'Finished'}
+    it('Deve retornar o status 200 e a mensagem "Finished" ', async () => {
+    const response = await chai.request(app).patch('/matches/47/finish').set({"Authorization" : token})
+    expect(response.status).to.equal(200)
+    expect(response.body).to.deep.equal(message)
+    })
+  })
   describe('patch /matches/id', () => {
     it('Espera que retorne o status 200', async () => {
       const response = await chai.request(app).patch('/matches/48').set({"Authorization" : token}).send({ 
@@ -153,6 +159,15 @@ describe('/matches', () => {
     })
   })
   describe('post /matches', () => {
+    before(() => {
+      Sinon.stub(Match, 'create').resolves({
+      "id": 49,
+      "homeTeam": 16,
+      "awayTeam": 8,
+      "homeTeamGoals": 2,
+      "awayTeamGoals": 2,
+      "inProgress": true} as Match)
+    })
   
     it('Espera que retorne o status 201 e a partida criada', async () => {
       const response = await chai.request(app).post('/matches').set({"Authorization" : token}).send({"homeTeam": 16,
@@ -171,6 +186,50 @@ describe('/matches', () => {
       "inProgress": true} )
       expect(response.status).to.equal(401)
       expect(response.body).to.deep.equal({message: "Token must be a valid token"})
+    })
+  })
+  describe('/leaderboard', () => {
+    describe('get /home', () => {
+      it('Espera o status 200', async () => {
+        const response = await chai.request(app).get('/leaderboard/home')
+        expect(response.status).to.equal(200)
+      })
+      it('Espera que o primeiro time retornado seja o Santos', async () => {
+        const response = await chai.request(app).get('/leaderboard/home')
+        expect(response.body[0].name).to.equal('Santos')
+      })
+      it('Espera que tenham 16 times', async () => {
+        const response = await chai.request(app).get('/leaderboard/home')
+        expect(response.body.length).to.equal(16)
+      })
+    })
+    describe('get /away', () => {
+      it('Espera o status 200', async () => {
+        const response = await chai.request(app).get('/leaderboard/away')
+        expect(response.status).to.equal(200)
+      })
+      it('Espera que o primeiro time retornado seja o Palmeiras', async () => {
+        const response = await chai.request(app).get('/leaderboard/away')
+        expect(response.body[0].name).to.equal('Palmeiras')
+      })
+      it('Espera que tenham 16 times', async () => {
+        const response = await chai.request(app).get('/leaderboard/away')
+        expect(response.body.length).to.equal(16)
+      })
+    })
+    describe('get /leaderboard', () => {
+      it('Espera o status 200', async () => {
+        const response = await chai.request(app).get('/leaderboard')
+        expect(response.status).to.equal(200)
+      })
+      it('Espera que o primeiro time retornado seja o santos', async () => {
+        const response = await chai.request(app).get('/leaderboard')
+        expect(response.body[0].name).to.equal('Santos')
+      })
+      it('Espera que tenham 16 times', async () => {
+        const response = await chai.request(app).get('/leaderboard')
+        expect(response.body.length).to.equal(16)
+      })
     })
   })
 })
