@@ -1,4 +1,4 @@
-Descrição: Este é um aplicativo full stack desenvolvido pensando em uma competição fictícia de futebol. Nele é possível encontrar as partidas que já aconteceram, e observar o placa em atual dos jogos que estão ocorrendo. Caso você tenha permissão de administrador, poderá adicionar, alterar ou finalizar partidas em andamento. Também é possível acessar a tabela de pontos e filtra-lá por jogos fora e em casa.
+Descrição: Este é o TFC um aplicativo full stack desenvolvido pensado em uma competição fictícia de futebol. Nele é possível encontrar as partidas que já aconteceram, e observar o placar atual dos jogos que estão ocorrendo. Caso você tenha permissão de administrador, poderá adicionar, alterar ou finalizar partidas em andamento. Também é possível acessar a tabela de pontos e filtra-lá por jogos fora e em casa.
 
 O que eu desenvolvi: API REST
 Qual stack:  back end
@@ -38,3 +38,11 @@ Use o comando cd para acessar a pasta que deseja.
 Primeiro passo - Ao entrar na pasta use o comando npm install
 Segundo passo - Caso tudo tenha ocorrido bem, use o comando npm run compose:up
 Terceiro passo - Agora acesse localhost:3000 e veja a aplicação rodando.
+
+Para fazer login como administrador:
+ email: admin@admin.com
+ senha: secret_admin
+ 
+ Para fazer login como usuário:
+ email: user@user.com
+ senha: secret_user
