@@ -1,4 +1,4 @@
-Descrição: Este é o TFC um aplicativo full stack desenvolvido pensado em uma competição fictícia de futebol. Nele é possível encontrar as partidas que já aconteceram, e observar o placar atual dos jogos que estão ocorrendo. Caso você tenha permissão de administrador, poderá adicionar, alterar ou finalizar partidas em andamento. Também é possível acessar a tabela de pontos e filtra-lá por jogos fora e em casa.
+Descrição: Este, é o TFC um aplicativo full stack desenvolvido pensado em uma competição fictícia de futebol. Nele é possível encontrar as partidas que já aconteceram, e observar o placar atual dos jogos que estão ocorrendo. Caso você tenha permissão de administrador, poderá adicionar, alterar ou finalizar partidas em andamento. Também é possível acessar a tabela de pontos e filtra-lá por jogos fora e em casa.
 
 O que eu desenvolvi: API REST
 Qual stack:  back end
